@@ -1,0 +1,298 @@
+unit main;
+
+{%File 'test.txt'}
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, ShellCtrls, StdCtrls, Menus, ActnList, ActnMan,
+  ToolWin, Buttons, XMLKaydet, Grids, ValEdit;
+
+type
+  TForm1 = class(TForm)
+    ActionManager1: TActionManager;
+    MainMenu1: TMainMenu;
+    dosyaAc: TAction;
+    dosyaKaydet: TAction;
+    Dosya1: TMenuItem;
+    dosyaAc1: TMenuItem;
+    dosyaKaydet1: TMenuItem;
+    OpenDialog1: TOpenDialog;
+    SaveDialog1: TSaveDialog;
+    projeFiltre: TAction;
+    Proje1: TMenuItem;
+    Filtre1: TMenuItem;
+    ScrollBox1: TScrollBox;
+    ScrollBox2: TScrollBox;
+    CoolBar1: TCoolBar;
+    PageScroller1: TPageScroller;
+    ToolBar1: TToolBar;
+    PageScroller2: TPageScroller;
+    ToolButton1: TToolButton;
+    ToolBar2: TToolBar;
+    Button1: TButton;
+    BitBtn1: TBitBtn;
+    projeKaynakYenile: TAction;
+    Kaynayenile1: TMenuItem;
+    projeUzantilar: TAction;
+    Alinacakuzantilar1: TMenuItem;
+    BitBtn2: TBitBtn;
+    dosyaKapat: TAction;
+    dosyaCikis: TAction;
+    Kapat1: TMenuItem;
+    N1: TMenuItem;
+    Cikis1: TMenuItem;
+    dosyaIcerikAl: TAction;
+    N2: TMenuItem;
+    N3: TMenuItem;
+    dosyaYeni: TAction;
+    N4: TMenuItem;
+    YeniProje1: TMenuItem;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    ValueListEditor1: TValueListEditor;
+    lvwMain: TListView;
+    ComboBox1: TComboBox;
+    Label4: TLabel;
+    CheckBox1: TCheckBox;
+    BitBtn3: TBitBtn;
+    vleIstatistik: TValueListEditor;
+    procedure dosyaAcExecute(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure lvwMainCompare(Sender: TObject; Item1, Item2: TListItem;
+      Data: Integer; var Compare: Integer);
+    procedure lvwMainColumnClick(Sender: TObject; Column: TListColumn);
+    procedure Kaynayenile1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure projeUzantilarExecute(Sender: TObject);
+    procedure projeKaynakYenileExecute(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure dosyaKaydetExecute(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+  private
+    { Private declarations }
+    ColumnToSort :Integer;
+    ColumnAlpha  :Integer;
+    FXMLYapiAcik :Boolean;
+  public
+    { Public declarations }
+    fXMLYapi :TXMLConfig;
+    fBlok    :TCeviriBlok;
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+uses proje, dosya;
+
+{$R *.dfm}
+
+procedure TForm1.dosyaAcExecute(Sender: TObject);
+  var
+    i     :Integer;
+begin
+  if not FXMLYapiAcik then
+    begin
+     fXMLYapi := TXMLConfig.Create;
+     FXMLYapiAcik := True;
+  end;
+
+  lvwMain.Items.Item[3].Caption := fXMLYapi.ReadBlock('z1').sStatus;
+
+  {
+  if OpenDialog1.Execute then
+  begin
+    XMLMain.LoadFromFile(OpenDialog1.FileName);
+
+    for i:=0 to XMLMain.DocumentElement.ChildNodes.Count-1 do
+    begin
+      lvwMain.AddItem(
+      'a'+XMLMain.DocumentElement.ChildNodes[i].ChildNodes['date'].Text, nil);
+    end;
+  end;
+  }
+end;
+
+
+procedure TForm1.Button1Click(Sender: TObject);
+  var
+    T : TListItems;
+    S : TStrings;
+    L : TList;
+begin
+  s := TStrings.Create;
+  T := TListItems.Create(nil);
+//  s.Assign();
+  t.Item[1].Assign(lvwMain.Items.Item[1]);
+//  t.Assign(lvwMain.Items);
+//  lvwMain.Items.Assign(t);
+//  lvwMain.Items.Item..Assign();
+end;
+
+procedure TForm1.lvwMainCompare(Sender: TObject; Item1, Item2: TListItem;
+  Data: Integer; var Compare: Integer);
+var
+  ix: Integer;
+begin
+  if ColumnAlpha = -1 then
+    ColumnAlpha := 1
+  else
+    ColumnAlpha := -1;
+
+  if ColumnToSort = 0 then
+    Compare := ColumnAlpha*CompareText(Item1.Caption,Item2.Caption)
+  else begin
+   ix := ColumnToSort - 1;
+   Compare := ColumnAlpha*CompareText(Item1.SubItems[ix],Item2.SubItems[ix]);
+  end;
+
+end;
+
+procedure TForm1.lvwMainColumnClick(Sender: TObject; Column: TListColumn);
+begin
+  ColumnToSort := Column.Index;
+  (Sender as TCustomListView).AlphaSort;
+end;
+
+procedure TForm1.Kaynayenile1Click(Sender: TObject);
+begin
+  ;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+//  Liste := TList.Create;
+end;
+
+procedure TForm1.projeUzantilarExecute(Sender: TObject);
+begin
+  frmUzantilar.ShowModal;
+end;
+
+procedure TForm1.projeKaynakYenileExecute(Sender: TObject);
+begin
+  frmDizinSec.ShowModal;
+end;
+
+procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+  var
+    i     :Integer;
+begin
+{
+  try
+    for i := 0 to (Liste.Count - 1) do
+    begin
+      Eleman := Liste.Items[i];
+      Dispose(Eleman);
+    end;
+  finally
+    Liste.Free;
+  end;
+ }
+end;
+
+procedure TForm1.BitBtn1Click(Sender: TObject);
+  var
+    i       :Integer;
+begin
+{
+  lvwMain.Clear;
+  for i := 0 to Liste.Count-1 do
+  begin
+    Eleman := Liste.Items[i];
+    lvwMain.AddItem(Eleman^.Enabled, nil);
+    lvwMain.Items.Item[i].SubItems.Add(Eleman^.Guncel);
+    lvwMain.Items.Item[i].SubItems.Add(Eleman^.Orijinal);
+    lvwMain.Items.Item[i].SubItems.Add(Eleman^.Ceviri);
+    lvwMain.Items.Item[i].SubItems.Add(Eleman^.Kaynak);
+    lvwMain.Items.Item[i].SubItems.Add(Eleman^.Yol);
+    lvwMain.Items.Item[i].SubItems.Add(Eleman^.Uzanti);
+  end;
+  }
+end;
+
+procedure TForm1.dosyaKaydetExecute(Sender: TObject);
+begin
+  fBlok.bActive := true;
+  fBlok.sStatus := 'degistirildi';
+  fBlok.sOriginal := 'About...';
+  fBlok.sTranslate := 'Hakkinda...';
+  fblok.sUnit   := 'frmAbout';
+  fBlok.sObj    := 'lblBuyuk';
+  fBlok.sType   := 'caption';
+
+  fXMLYapi.WriteBlock(fBlok, 'frmMain.lblBuyuk.Caption');
+
+  fXMLYapi.Save;
+end;
+
+procedure TForm1.BitBtn3Click(Sender: TObject);
+begin
+  vleIstatistik.Keys[1] := 'abc';
+end;
+
+end.
+
+buranin alti önemsiz
+
+procedure TForm1.FormButton1Click(Sender: TObject);
+
+type
+  PMyList = ^AList;
+  AList = record
+    I: Integer;
+    C: Char;
+  end;
+
+var
+
+  MyList: TList;
+  ARecord: PMyList;
+  B: Byte;
+  Y: Word;
+begin
+  MyList := TList.Create;
+  try
+    New(ARecord);
+    ARecord^.I := 100;
+    ARecord^.C := 'Z';
+    MyList.Add(ARecord); {Add integer 100 and character Z to list}
+    New(ARecord);
+    ARecord^.I := 200;
+    ARecord^.C := 'X';
+    MyList.Add(ARecord); {Add integer 200 and character X to list}
+
+    { Now paint the items onto the paintbox}
+    Y := 10;             {Variable used in TextOut function}
+
+    for B := 0 to (MyList.Count - 1) do
+    begin
+      ARecord := MyList.Items[B];
+      Canvas.TextOut(10, Y, IntToStr(ARecord^.I)); {Display I}
+      Y := Y + 30;  {Increment Y Value again}
+      Canvas.TextOut(10, Y, ARecord^.C);  {Display C}
+      Y := Y + 30;  {Increment Y Value}
+    end;
+
+    { Cleanup: must free the list items as well as the list }
+   for B := 0 to (MyList.Count - 1) do
+   begin
+
+     ARecord := MyList.Items[B];
+     Dispose(ARecord);
+   end;
+  finally
+    MyList.Free;
+  end;
+end;
+}

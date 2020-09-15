@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<MENU>
+    <ENTRY CAPTION="Datei" VISIBLE="1" ID="None" SHORTCUT="None" CHECKED="0">
+    <ENTRY CAPTION="Beenden" VISIBLE="1" ID="CloseProgram" SHORTCUT="Strg+X" CHECKED="0"></ENTRY>
+    </ENTRY>
+
+    <ENTRY CAPTION="Anzeige" VISIBLE="1" ID="None" SHORTCUT="None" CHECKED="0">
+    <ENTRY CAPTION="Toolbar" VISIBLE="1" ID="ShowToolbar"  SHORTCUT="None" CHECKED="1"></ENTRY>
+    <ENTRY CAPTION="Seperator" VISIBLE="1"></ENTRY>
+    <ENTRY CAPTION="Optionen" VISIBLE="1" ID="ShowOptionen"  SHORTCUT="Strg+O" CHECKED="0"></ENTRY>
+    </ENTRY>
+
+    <ENTRY CAPTION="News" VISIBLE="1" ID="None" SHORTCUT="None" CHECKED="0">
+    <ENTRY CAPTION="Refresh" VISIBLE="1" ID="RefreshAll"  SHORTCUT="F5" CHECKED="0"></ENTRY>
+    <ENTRY CAPTION="Seperator" VISIBLE="1"></ENTRY>
+    <ENTRY CAPTION="Administration" VISIBLE="1" ID="None" SHORTCUT="None" CHECKED="0">
+    <ENTRY CAPTION="neue Nachricht hinzufügen" VISIBLE="1" ID="NewMarkedNews" SHORTCUT="Strg+N" CHECKED="0"></ENTRY>
+    <ENTRY CAPTION="markierte Nachricht bearbeiten" VISIBLE="1" ID="EditMarkedNews" SHORTCUT="Strg+E" CHECKED="0"></ENTRY>
+     <ENTRY CAPTION="markierte Nachricht löschen" VISIBLE="1" ID="DeleteMarkedNews" SHORTCUT="None" CHECKED="0"></ENTRY>
+    <ENTRY CAPTION="Seperator" VISIBLE="1"></ENTRY>
+    <ENTRY CAPTION="Film hinzufügen" VISIBLE="1" ID="AddMPG" SHORTCUT="None" CHECKED="0"></ENTRY>
+     <ENTRY CAPTION="markierten Film löschen" VISIBLE="1" ID="DeleteMPG" SHORTCUT="None" CHECKED="0"></ENTRY>
+    </ENTRY>
+    </ENTRY>
+
+    <ENTRY CAPTION="Hilfe" VISIBLE="1" ID="None" SHORTCUT="None" CHECKED="0">
+    <ENTRY CAPTION="LogView" VISIBLE="1" ID="ShowLog" SHORTCUT="Strg+L" CHECKED="0"></ENTRY>
+    <ENTRY CAPTION="eMail schreiben" VISIBLE="1" ID="WriteEMail" SHORTCUT="None" CHECKED="0"></ENTRY>
+    <ENTRY CAPTION="Seperator" VISIBLE="1"></ENTRY>
+    <ENTRY CAPTION="Über" VISIBLE="1" ID="About" SHORTCUT="None" CHECKED="0"></ENTRY>
+    </ENTRY>
+
+</MENU>
